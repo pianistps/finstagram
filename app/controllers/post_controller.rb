@@ -31,4 +31,19 @@ class PostController < ApplicationController
     end
   end
 
+  get '/posts/:id' do
+    # "hello post id"
+    if is_logged_in?(session)
+      @post = Post.find_by_id(params[:id])
+      erb :'/posts/id'
+    else
+      flash[:error] = "Please log in"
+      redirect '/login'
+    end
+  end
+
+  get '/posts/:id/edit' do
+    "edit post!"
+  end
+
 end
