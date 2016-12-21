@@ -8,8 +8,13 @@
     <h1>Hello, <%= current_user.username %></h1>
     <br><br>
 
+    <h2>Recent Posts</h2>
     <% @posts.each do |post| %>
-      <a href="/users/<%= @post.user.slug %>"><%= @post.user.name%></a>
+      <a href="/users/<%= post.user.slug %>"><%= post.user.username%></a>
+      <br>
+      <a href="/posts/<%= post.id %>"><%= post.post_photo %></a>
+      <br>
+      <a href="/posts/<%= post.id %>"><%= post.caption %></a>
     <% end %>
   </body>
 </html>
