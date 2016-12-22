@@ -43,7 +43,45 @@ class PostController < ApplicationController
   end
 
   post '/posts/:id/edit' do
-    "edit post!"
+    # "edit post!"
+    @post = Post.find_by_id(params[:id])
+    if is_logged_in?(session) && @post.user_id == current_user.id
+      erb :'/posts/edit'
+    elsif is_logged_in?(session) && @post.user_id != current_user.id
+    flash[:error] = "This is not your post to edit"
+    redirect '/posts'
+    else
+      flash[error] = "Please log in"
+      redirect '/login'
+    end
+  end
+
+  patch '/posts/:id' do
+    # "now to patch!"
+    post = Post.find_by_id(params[:id])
+    if params[:caption] != ""
+      post.update(caption: params[:caption])
+      flash[:success] = "Post successfully updated!"
+      redirect "/posts/#{post.id}"
+    else
+      flash[:error] = "Your post did not update correctly"
+      redirect "/posts/#{post.id}/edit"
+    end
+  end
+
+  delete '/posts/:id/delete' do
+    post = Post.find_by_id(params[:id])
+    if is_logged_in?(session) && post.user_id == current_user.id
+      post.delete
+      flash[:success] = "Post removed"
+      redirect '/posts'
+    elsif is_logged_in?(session) && post.user_id != current_user.id
+      flash[:error] = "This is not your post to delete"
+      redirect '/posts'
+    else
+      flash[:error] = "Please log in"
+      redirect '/login'
+    end
   end
 
 end
