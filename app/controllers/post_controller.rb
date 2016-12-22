@@ -42,7 +42,7 @@ class PostController < ApplicationController
     end
   end
 
-  get '/posts/:id/edit' do
+  post '/posts/:id/edit' do
     "edit post!"
   end
 
