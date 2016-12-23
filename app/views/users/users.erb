@@ -2,10 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Your Profile</title>
+    <title></title>
   </head>
   <body>
-    <h1><% if @user == current_user %>Your <% else %><%= @user.username %>'s <% end %>Profile</h1>
+    <h1><% if @user == current_user %>Your
+      <% else %><%= @user.username %>'s
+      <% end %>Profile</h1>
+
     <% posts = @user.posts.sort_by {|post| post.id }.reverse %>
     <% posts.each do |post| %>
     <a href="/users/<%= post.user.slug %>"><%= post.user.username %></a>

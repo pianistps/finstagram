@@ -1,13 +1,11 @@
 class UserController < ApplicationController
 
   get '/users/:slug' do
-    # "user's profile"
     @user = User.find_by_slug(params[:slug])
     erb :'/users/users'
   end
 
   post '/users/:id/edit' do
-    # "edit me"
     @user = User.find_by_id(params[:id])
     if is_logged_in?(session) && @user.id == current_user.id
       erb :'/users/edit'
@@ -24,7 +22,7 @@ class UserController < ApplicationController
     user = User.find_by_id(params[:id])
     if params[:user_photo] != ""
       user.update(user_photo: params[:user_photo])
-      flash[:success] = "Profile successfully updated!"
+      flash[:success] = "Profile photo successfully updated!"
       redirect "/users/#{user.id}"
     else
       flash[:error] = "Your profile did not update correctly"
@@ -33,7 +31,6 @@ class UserController < ApplicationController
   end
 
   get '/login' do
-    # "log in!!"
     if !is_logged_in?(session)
       erb :'/users/login'
     else
@@ -53,7 +50,6 @@ class UserController < ApplicationController
   end
 
   get '/signup' do
-    # "Sign up"
     if !is_logged_in?(session)
       erb :'/users/new'
     else

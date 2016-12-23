@@ -5,13 +5,12 @@ class PostController < ApplicationController
       @posts = Post.all
       erb :'/posts/posts'
     else
-      flash[:error] = "Please log in."
+      flash[:error] = "Please log in"
       redirect '/login'
     end
   end
 
   get '/posts/new' do
-    # "hello new post"
     if is_logged_in?(session)
       erb :'/posts/new'
     else
@@ -32,7 +31,6 @@ class PostController < ApplicationController
   end
 
   get '/posts/:id' do
-    # "hello post id"
     if is_logged_in?(session)
       @post = Post.find_by_id(params[:id])
       erb :'/posts/id'
@@ -43,7 +41,6 @@ class PostController < ApplicationController
   end
 
   post '/posts/:id/edit' do
-    # "edit post!"
     @post = Post.find_by_id(params[:id])
     if is_logged_in?(session) && @post.user_id == current_user.id
       erb :'/posts/edit'
@@ -57,7 +54,6 @@ class PostController < ApplicationController
   end
 
   patch '/posts/:id' do
-    # "now to patch!"
     post = Post.find_by_id(params[:id])
     if params[:caption] != ""
       post.update(caption: params[:caption])
