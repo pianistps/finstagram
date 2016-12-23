@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Your Profile</title>
+  </head>
+  <body>
+    <h1><% if @user == current_user %>Your Profile<% else %><%= @user.username %>'s<% end %> Profile</h1>
+    <% posts = @user.posts.sort_by {|post| post.id }.reverse %>
+    <% posts.each do |post| %>
+    <a href="/users/<%= post.user.slug %>"><%= post.user.username %></a>
+    <br><br>
+
+    <a href="/posts/<%= post.id %>"><%= post.post_photo %></a>
+    <p><%= post.caption %></p>
+  </body>
+</html>
