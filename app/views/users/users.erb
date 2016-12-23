@@ -14,5 +14,17 @@
     <a href="/posts/<%= post.id %>"><%= post.post_photo %></a>
     <p><%= post.caption %></p>
     <% end %>
+    <br><br>
+
+    <% if @user == current_user %><% else %><% end %>
+    <form action="/users/<%= @user.id%>/edit" method="post">
+      <input type="hidden" name="_method" value="edit">
+      <input type="submit" name="" value="Edit Profile Photo">
+    </form>
+
+    <form action="/users/<%= @user.id%>/delete" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" name="" value="Delete Profile">
+    </form>
   </body>
 </html>

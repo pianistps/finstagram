@@ -6,6 +6,32 @@ class UserController < ApplicationController
     erb :'/users/users'
   end
 
+  post '/users/:id/edit' do
+    # "edit me"
+    @user = User.find_by_id(params[:id])
+    if is_logged_in?(session) && @user.id == current_user.id
+      erb :'/users/edit'
+    elsif is_logged_in?(session) && @user.id != current_user.id
+    flash[:error] = "This is not your profile to edit"
+    redirect '/posts'
+    else
+      flash[:error] = "Please log in"
+      redirect '/login'
+    end
+  end
+
+  patch '/users/:id' do
+    user = User.find_by_id(params[:id])
+    if params[:user_photo] != ""
+      user.update(user_photo: params[:user_photo])
+      flash[:success] = "Profile successfully updated!"
+      redirect "/users/#{user.id}"
+    else
+      flash[:error] = "Your profile did not update correctly"
+      redirect "/users/#{user.id}/edit"
+    end
+  end
+
   get '/login' do
     # "log in!!"
     if !is_logged_in?(session)
