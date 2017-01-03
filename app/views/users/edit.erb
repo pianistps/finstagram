@@ -9,7 +9,7 @@
     <form action="/users/<%= @user.id %>" method="post">
       <input type="hidden" name="_method" value="patch">
       <label>Profile Photo </label>
-      <input type="text" name="user_photo" value="<%= @user.user_photo %>">
+      <input type="text" name="user_photo" >
       <input type="submit" value="Update Profile">
     </form>
   </body>
