@@ -5,7 +5,7 @@
     <title></title>
   </head>
   <body>
-    <h1><% if @user == current_user %>Your
+    <h1><% if @user && @user == current_user %>Your
       <% else %><%= @user.username %>'s
       <% end %>Profile</h1>
 
